@@ -7,8 +7,9 @@ export interface IOrder extends Nano.MaybeDocument {
   work: string
   quantity: number
   unitPrice: number
-  salesTax: number | boolean
-  state: "notYetOrdered" | "working" | "delivered"
+  salesTaxIsInPrice: boolean
+  salesTax: number
+  state: "notYetOrdered" | "wip" | "delivered"
 }
 
 export class Order implements IOrder {
@@ -19,6 +20,9 @@ export class Order implements IOrder {
   work: string
   quantity: number
   unitPrice: number
+  salesTaxIsInPrice: boolean
+  salesTax: number
+  state: "notYetOrdered" | "wip" | "delivered"
 
   constructor(order: IOrder) {
     this._id = undefined
@@ -28,6 +32,9 @@ export class Order implements IOrder {
     this.work = order.work
     this.quantity = order.quantity
     this.unitPrice = order.unitPrice
+    this.salesTaxIsInPrice = order.salesTaxIsInPrice
+    this.salesTax = order.salesTax
+    this.state = order.state
   }
  
   processAPIResponse(response: Nano.DocumentInsertResponse) {

@@ -1,28 +1,28 @@
 // ファイル
 import * as Nano from "nano"
 
-export interface IOrder extends Nano.MaybeDocument {
+export interface IFile extends Nano.MaybeDocument {
+  uuid: string
   createdDate: Date
   name: string
-  quantity: number
-  unitPrice: number
+  type: string
 }
 
-export class Order implements IOrder {
+export class File implements IFile {
   _id: string
   _rev: string
-  date: Date
-  work: string
-  quantity: number
-  unitPrice: number
+  uuid: string
+  createdDate: Date
+  name: string
+  type: string
 
-  constructor(order: IOrder) {
+  constructor(file: IFile) {
     this._id = undefined
     this._rev = undefined
-    this.date = order.date
-    this.work = order.work
-    this.quantity = order.quantity
-    this.unitPrice = order.unitPrice
+    this.uuid = file.uuid
+    this.createdDate = file.createdDate
+    this.name = file.name
+    this.type = file.type
   }
  
   processAPIResponse(response: Nano.DocumentInsertResponse) {
