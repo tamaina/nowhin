@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "es5",
+        "moduleResolution": "node",
+        "module": "esnext",
+        "lib": ["dom", "es6"],
+        "esModuleInterop": true,
+        "plugins": [
+            {
+                "name": "@divyenduz/ts-graphql-plugin"
+            }
+        ],
+        "types": [
+            "webpack-env",
+            "vuetify"
+        ]
+    },
+    "exclude": ["backend"],
+    "include": [
+        "src/client/**/*"
+    ]
+}

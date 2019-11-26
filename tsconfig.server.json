@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "es2017",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "types": ["node"],
+        "outDir": "./built",
+        "plugins": [
+            {
+                "name": "@divyenduz/ts-graphql-plugin"
+            }
+        ]
+    },
+    "exclude": ["client"]
+}
