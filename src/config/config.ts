@@ -4,9 +4,15 @@ import * as yaml from "js-yaml"
 export interface ISource {
   url: string
   db: {
-    url: string
-    prefix: string
+    host: string
+    port: number
+    db: string
+    username: string
+    password: string
+    disableCache?: boolean
+    extra?: any
   }
+  redis: any
   port: number
 }
 
@@ -20,7 +26,7 @@ const conf = yaml.safeLoad(yml) as ISource
 conf.url = normalizeUrl(conf.url)
 const parsedUrl = validateUrl(conf.url)
 
-export const config = Object.assign(({
+export const config = () => Object.assign(({
   parsedUrl
 } as IMixin), conf)
 

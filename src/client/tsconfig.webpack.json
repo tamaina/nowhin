@@ -6,6 +6,7 @@
         "module": "esnext",
         "lib": ["dom", "es6"],
         "esModuleInterop": true,
+        "experimentalDecorators": true,
         "plugins": [
             {
                 "name": "@divyenduz/ts-graphql-plugin"

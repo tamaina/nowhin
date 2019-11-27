@@ -6,6 +6,8 @@
         "module": "commonjs",
         "lib": ["dom", "es6"],
         "types": ["node"],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "outDir": "./built",
         "plugins": [
             {

@@ -7,7 +7,7 @@ const log = require("fancy-log")
 const colors = require("colors")
 
 const $ = require("gulp-load-plugins")()
-const wpackconf = require("./webpack.config")
+const wpackconf = require("./src/client/webpack.config")
 
 const pkg = require("./package.json")
 
@@ -24,7 +24,7 @@ gulp.task("webpack", cb => {
 })
 
 gulp.task("tsc", cb => {
-  const tsProject = $.typescript.createProject("tsconfig.server.json")
+  const tsProject = $.typescript.createProject("tsconfig.json")
   tsProject.src()
     .pipe(tsProject())
     .js.pipe(gulp.dest("./built"))

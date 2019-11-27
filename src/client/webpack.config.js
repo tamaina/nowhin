@@ -5,11 +5,11 @@ const MonocoEditorPlugin = require("monaco-editor-webpack-plugin")
 
 module.exports = {
   entry: {
-    app: "./src/client/main.ts"
+    app: "./main.ts"
   },
   output: {
     filename: "[name].js",
-    path: join(__dirname, "built/client"),
+    path: join(__dirname, "../../built/client"),
     publicPath: "/assets/"
   },
   resolve: {
