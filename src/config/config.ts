@@ -1,8 +1,10 @@
 import * as fs from "fs"
 import * as yaml from "js-yaml"
+import { resolve } from "path"
 
 export interface ISource {
   url: string
+  port: number
   db: {
     host: string
     port: number
@@ -12,15 +14,13 @@ export interface ISource {
     disableCache?: boolean
     extra?: any
   }
-  redis: any
-  port: number
 }
 
 export interface IMixin {
   parsedUrl: URL
 }
 
-const yml = fs.readFileSync(`${__dirname}/../.config/default.yaml`, "utf8")
+const yml = fs.readFileSync(resolve(__dirname, "../../.config/default.yaml"), "utf8")
 
 const conf = yaml.safeLoad(yml) as ISource
 conf.url = normalizeUrl(conf.url)

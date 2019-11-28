@@ -19,13 +19,13 @@ export class User {
 
   @Index()
   @Column("varchar", {
-    length: 24
+    length: 128
   })
   public pwhash: string
 
   @Index()
   @Column("varchar", {
-    length: 64
+    length: 16
   })
   public i: string
 

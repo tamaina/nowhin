@@ -1,5 +1,6 @@
 import config from "../config"
-import { getConnection, createConnection } from "typeorm"
+import { createConnection, getConnection } from "typeorm"
+import { entities } from "./models"
 
 export function initDb() {
   try {
@@ -11,10 +12,8 @@ export function initDb() {
     type: "postgres",
     ...config.db,
     synchronize: false,
-    dropSchema: false,
-    cache: {
-      type: "ioredis",
-      options: config.redis
-    }
+    dropSchema: true,
+    entities,
+    logging: true
   })
 }

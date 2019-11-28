@@ -6,10 +6,9 @@
 
 - node.js
 - PostgreSQL
-- Redis
 
 ### ダウンロード
-[リリースページ](https://github.com/tamaina/svg-telopper/releases)から「svg-telopper-v2.x.x.zip」をダウンロードし、適当なフォルダーに解凍してください。
+[リリースページ](https://github.com/tamaina/nowhin/releases)から「nowhin-v1.x.x.zip」をダウンロードし、適当なフォルダーに解凍してください。
 
 ### 基本操作
 #### 1. インストール

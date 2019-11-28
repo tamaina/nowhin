@@ -8,12 +8,17 @@
         "types": ["node"],
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "outDir": "./built",
+        "outDir": "built",
         "plugins": [
             {
                 "name": "@divyenduz/ts-graphql-plugin"
             }
         ]
     },
-    "exclude": ["client"]
+	"include": [
+		"./src/**/*.ts"
+	],
+	"exclude": [
+        "./src/client/**/*.ts"
+    ]
 }

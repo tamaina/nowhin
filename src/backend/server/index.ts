@@ -2,7 +2,7 @@ import * as colors from "colors"
 import * as log from "fancy-log"
 import { createServer, Server } from "http"
 
-import { config } from "../../config"
+import config from "../../config"
 import app from "./app"
 import { pkg } from "./pkg"
 

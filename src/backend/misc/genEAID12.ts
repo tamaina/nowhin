@@ -1,7 +1,7 @@
 // https://github.com/marihachi/enhanced-aid/blob/master/ts/src/eaid.ts
 // Marihachi, MIT Liscense
 
-export function getEAID(time: number, randomLength: number, randFunc: () => number) {
+export function genEAID(time: number, randomLength: number, randFunc: () => number) {
 	const timestamp = time.toString(36).padStart(9, '0');
 
 	let random = '';
@@ -12,6 +12,6 @@ export function getEAID(time: number, randomLength: number, randFunc: () => numb
 	return timestamp + random;
 }
 
-export function getEAID12() {
-	return getEAID(Date.now(), 3, Math.random);
+export function genEAID12() {
+	return genEAID(Date.now(), 3, Math.random);
 }
