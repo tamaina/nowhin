@@ -18,7 +18,3 @@ export const Orders = getRepository(Order)
 export const People = getRepository(Person)
 export const Users = getRepository(User)
 export const Works = getRepository(Work)
-
-export const entities = [
-  Bill, Company, DeliverSheet, DriveFile, Meta, Order, Person, User, Work
-]

@@ -27,7 +27,7 @@ export class Bill {
   public ordererPerson?: string
 
   @Index()
-  @Column({
+  @Column("varchar", {
     ...id(),
     array: true
   })

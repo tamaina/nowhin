@@ -30,6 +30,7 @@
     "koa-mount": "^4.0.0",
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.0",
+    "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
     "rndstr": "^1.0.0",
     "type-graphql": "^0.17.5",

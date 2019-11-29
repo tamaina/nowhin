@@ -27,7 +27,7 @@ export class DeliverSheet {
   public ordererPerson?: Person
 
   @Index()
-  @Column({
+  @Column("varchar", {
     ...id(),
     array: true
   })

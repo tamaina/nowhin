@@ -30,14 +30,14 @@ export class Work {
   public identifiers: string[]
 
   @Index()
-  @Column({
+  @Column("varchar", {
     ...id,
     array: true
   })
   public orderIds: Order["id"][]
 
   @Index()
-  @Column({
+  @Column("varchar", {
     ...id,
     array: true,
     default: "{}"

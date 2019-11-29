@@ -1,19 +1,28 @@
 import config from "../config"
 import { createConnection, getConnection } from "typeorm"
-import { entities } from "./models"
+import { entities } from "./models/entities"
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"
 
 export function initDb() {
   try {
     const c = getConnection()
+    console.log(c)
     return Promise.resolve(c)
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 
-  return createConnection({
+  const option = {
     type: "postgres",
     ...config.db,
     synchronize: false,
     dropSchema: true,
     entities,
-    logging: true
-  })
+    logging: true,
+    logger: "file"
+  } as PostgresConnectionOptions
+
+  console.log(option)
+
+  return createConnection(option)
 }
