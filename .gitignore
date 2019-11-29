@@ -3,3 +3,4 @@ built
 zips
 .config/
 !.config/example.yml
+ormlogs.log
