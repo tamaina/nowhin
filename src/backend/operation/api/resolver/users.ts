@@ -12,8 +12,12 @@ export class AUsers {
     @Arg("name", { nullable: true }) name?: string,
     @Arg("id", { nullable: true }) id?: string
   ): Promise<AUser> {
-    if (!name && !id) throw Error("いずれかの引数を渡してください。")
-    return DUsers.findOne({ name }).then(res => {
+    const query = {} as { name?: string, id?: string }
+    if (name) query.name = name
+    else if (id) query.id = id
+    else throw Error("いずれかの引数を渡してください。")
+
+    return DUsers.findOne(query).then(res => {
       if (!res) throw Error("ユーザーは見つかりませんでした。")
       const { id, createdAt, name } = res
       return { id, createdAt, name }
