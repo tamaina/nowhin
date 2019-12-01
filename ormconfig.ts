@@ -1,5 +1,5 @@
-const config = require("./built/config/").default
-const { entities } = require("./built/backend/models/entities")
+import config from "./src/config/"
+import { entities } from "./src/backend/models/entities"
 
 module.exports = {
   type: "postgres",

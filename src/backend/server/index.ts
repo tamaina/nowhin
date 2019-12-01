@@ -1,23 +1,14 @@
 import * as colors from "colors"
 import * as log from "fancy-log"
-import { createServer, Server } from "http"
+import { createServer } from "http"
 
 import config from "../../config"
-import app from "./app"
-import { pkg } from "./pkg"
+import App from "./app"
 
-export class STServer {
-  public httpServer: Server = null
+export default async () => {
+  const app = await App()
+  const httpServer = createServer(app.callback())
 
-  constructor() {
-    log(`SVG Telopper v${pkg.version} Server Starting...`)
-
-    this.httpServer = createServer(app.callback())
-
-    this.httpServer.listen(config.port)
-    log(`サーバーを開始しました。${colors.green(config.url)}`)
-
-  }
+  httpServer.listen(config.port)
+  log(`サーバーを開始しました。${colors.green(config.url)}`)
 }
-
-export const server = new Server()

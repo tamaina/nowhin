@@ -4,7 +4,7 @@
         "target": "es2017",
         "moduleResolution": "node",
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": ["dom", "esnext"],
         "types": ["node"],
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
