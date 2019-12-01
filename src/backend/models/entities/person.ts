@@ -2,10 +2,10 @@
 // ファイル
 import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { Company } from "./company"
+import { DCompany } from "./company"
 
 @Entity()
-export class Person {
+export class DPerson {
   @PrimaryColumn(id())
   public id: string
 
@@ -22,12 +22,13 @@ export class Person {
   })
   public position: string
 
-  @Column("varchar", {
-    ...id()
+  @ManyToOne(type => DCompany, {
+    onDelete: 'SET NULL'
   })
-  public companyId: Company["id"]
+  @JoinColumn()
+  public company: DCompany
 
-  constructor(data: Partial<Person>) {
+  constructor(data: Partial<DPerson>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

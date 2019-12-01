@@ -3,7 +3,7 @@ import { Entity, PrimaryColumn, Column, Index } from "typeorm"
 import { id } from "../id"
 
 @Entity()
-export class User {
+export class DUser {
   @PrimaryColumn(id())
   public id: string
 
@@ -29,7 +29,7 @@ export class User {
   })
   public i: string
 
-  constructor(data: Partial<User>) {
+  constructor(data: Partial<DUser>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

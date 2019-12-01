@@ -1,20 +1,20 @@
 import { getRepository } from "typeorm"
-import { Bill } from "./entities/bill"
-import { Company } from "./entities/company"
-import { DeliverSheet } from "./entities/deliverSheet"
-import { DriveFile } from "./entities/driveFile"
-import { Meta } from "./entities/meta"
-import { Order } from "./entities/order"
-import { Person } from "./entities/person"
-import { User } from "./entities/user"
-import { Work } from "./entities/work"
+import { DBill } from "./entities/bill"
+import { DCompany } from "./entities/company"
+import { DDeliverSheet } from "./entities/deliverSheet"
+import { DDriveFile } from "./entities/driveFile"
+import { DMeta } from "./entities/meta"
+import { DOrder } from "./entities/order"
+import { DPerson } from "./entities/person"
+import { DUser } from "./entities/user"
+import { DWork } from "./entities/work"
 
-export const Bills = getRepository(Bill)
-export const Companies = getRepository(Company)
-export const DeliverSheets = getRepository(DeliverSheet)
-export const DriveFiles = getRepository(DriveFile)
-export const Metas = getRepository(Meta)
-export const Orders = getRepository(Order)
-export const People = getRepository(Person)
-export const Users = getRepository(User)
-export const Works = getRepository(Work)
+export const DBills = getRepository(DBill)
+export const DCompanies = getRepository(DCompany)
+export const DDeliverSheets = getRepository(DDeliverSheet)
+export const DDriveFiles = getRepository(DDriveFile)
+export const DMetas = getRepository(DMeta)
+export const DOrders = getRepository(DOrder)
+export const DPeople = getRepository(DPerson)
+export const DUsers = getRepository(DUser)
+export const DWorks = getRepository(DWork)

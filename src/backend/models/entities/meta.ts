@@ -1,10 +1,10 @@
 // 設定
 import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { DriveFile } from "./driveFile"
+import { DDriveFile } from "./driveFile"
 
 @Entity()
-export class Meta {
+export class DMeta {
   @PrimaryColumn(id())
   public id: string
 
@@ -16,13 +16,13 @@ export class Meta {
   @Column("varchar", {
     length: 128
   })
-  public bannerId: DriveFile["id"]
+  public bannerId: DDriveFile["id"]
 
-  @OneToOne(type => DriveFile)
+  @OneToOne(type => DDriveFile)
   @JoinColumn()
-  public banner: DriveFile
+  public banner: DDriveFile
 
-  constructor(data: Partial<Meta>) {
+  constructor(data: Partial<DMeta>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

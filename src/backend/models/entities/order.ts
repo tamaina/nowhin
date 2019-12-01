@@ -1,11 +1,10 @@
 // 受注
-import { Entity, PrimaryColumn, Column, Index, JoinColumn, OneToOne } from "typeorm"
+import { Entity, PrimaryColumn, Column, Index, JoinColumn, ManyToOne } from "typeorm"
 import { id } from "../id"
-import { Company } from "./company"
-import { Work } from "./work"
+import { DWork } from "./work"
 
 @Entity()
-export class Order {
+export class DOrder {
   @PrimaryColumn(id())
   public id: string
 
@@ -26,11 +25,11 @@ export class Order {
 
   @Index()
   @Column(id())
-  public workId: Work["id"]
+  public workId: DWork["id"]
 
-  @OneToOne(type => Work)
+  @ManyToOne(type => DWork)
   @JoinColumn()
-  public work : Work
+  public work : DWork
 
   @Column("integer", {
     default: 1
@@ -53,7 +52,7 @@ export class Order {
   })
   public state: "notYetOrdered" | "workInProgress" | "delivered" | "obsolete"
 
-  constructor(data: Partial<Order>) {
+  constructor(data: Partial<DOrder>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

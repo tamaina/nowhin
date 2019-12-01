@@ -1,13 +1,13 @@
 // 仕事
 import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { Company } from "./company"
-import { Person } from "./person"
-import { DriveFile } from "./driveFile"
-import { Order } from "./order"
+import { DCompany } from "./company"
+import { DPerson } from "./person"
+import { DDriveFile } from "./driveFile"
+import { DOrder } from "./order"
 
 @Entity()
-export class Work {
+export class DWork {
   @PrimaryColumn(id())
   public id: string
 
@@ -34,7 +34,7 @@ export class Work {
     ...id,
     array: true
   })
-  public orderIds: Order["id"][]
+  public orderIds: DOrder["id"][]
 
   @Index()
   @Column("varchar", {
@@ -42,26 +42,26 @@ export class Work {
     array: true,
     default: "{}"
   })
-  public fileIds: DriveFile["id"][]
+  public fileIds: DDriveFile["id"][]
 
   @Column("varchar", {
     length: 8192
   })
   public memo: string
 
-  @ManyToOne(type => Company, {
+  @ManyToOne(type => DCompany, {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
-  public ordererCompany?: Company
+  public ordererCompany?: DCompany
 
-  @ManyToOne(type => Person, {
+  @ManyToOne(type => DPerson, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
-  public ordererPerson?: Person
+  public ordererPerson?: DPerson
 
-  constructor(data: Partial<Work>) {
+  constructor(data: Partial<DWork>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

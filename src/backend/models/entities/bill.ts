@@ -1,12 +1,12 @@
 // 請求書
 import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { Company } from "./company"
-import { Person } from "./person"
-import { Order } from "./order"
+import { DCompany } from "./company"
+import { DPerson } from "./person"
+import { DOrder } from "./order"
 
 @Entity()
-export class Bill {
+export class DBill {
   @PrimaryColumn(id())
   public id: string
 
@@ -14,13 +14,13 @@ export class Bill {
   @Column()
   public createdAt: Date
 
-  @ManyToOne(type => Company, {
+  @ManyToOne(type => DCompany, {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
   public ordererCompany?: string
 
-  @ManyToOne(type => Person, {
+  @ManyToOne(type => DPerson, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
@@ -31,14 +31,14 @@ export class Bill {
     ...id(),
     array: true
   })
-  public orderIds: Order["id"][]
+  public orderIds: DOrder["id"][]
 
   @Column("varchar", {
     length: 8192
   })
   public memo: string
 
-  constructor(data: Partial<Bill>) {
+  constructor(data: Partial<DBill>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

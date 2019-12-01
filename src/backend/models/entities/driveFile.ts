@@ -3,7 +3,7 @@ import { Entity, PrimaryColumn, Column } from "typeorm"
 import { id } from "../id"
 
 @Entity()
-export class DriveFile {
+export class DDriveFile {
   @PrimaryColumn(id())
   public id: string
 
@@ -20,7 +20,7 @@ export class DriveFile {
   })
   public type: string
 
-  constructor(data: Partial<DriveFile>) {
+  constructor(data: Partial<DDriveFile>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

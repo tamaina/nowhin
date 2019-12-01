@@ -1,10 +1,10 @@
 // 会社
 import { Entity, PrimaryColumn, Column } from "typeorm"
 import { id } from "../id"
-import { Person } from "./person"
+import { DPerson } from "./person"
 
 @Entity()
-export class Company {
+export class DCompany {
   @PrimaryColumn(id())
   public id: string
 
@@ -37,9 +37,9 @@ export class Company {
     array: true,
     default: "{}"
   })
-  public members: Person["id"][]
+  public members: DPerson["id"][]
 
-  constructor(data: Partial<Company>) {
+  constructor(data: Partial<DCompany>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

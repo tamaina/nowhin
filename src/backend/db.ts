@@ -6,23 +6,16 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
 export function initDb() {
   try {
     const c = getConnection()
-    console.log(c)
     return Promise.resolve(c)
-  } catch (e) {
-    console.log(e)
-  }
+  } catch (e) {}
 
-  const option = {
+  return createConnection({
     type: "postgres",
     ...config.db,
     synchronize: false,
-    dropSchema: true,
+    dropSchema: false,
     entities,
     logging: true,
     logger: "file"
-  } as PostgresConnectionOptions
-
-  console.log(option)
-
-  return createConnection(option)
+  })
 }
