@@ -1,5 +1,5 @@
 import { buildSchema } from "type-graphql"
-import { AUsers } from "./api/resolver/users"
+import { AUsers } from "./api/users"
 
 export const schema = () => buildSchema({
   resolvers: [

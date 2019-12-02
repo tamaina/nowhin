@@ -2,7 +2,7 @@
 import { Entity, PrimaryColumn, Column, Index } from "typeorm"
 import { id } from "../id"
 
-@Entity()
+@Entity("user")
 export class DUser {
   @PrimaryColumn(id())
   public id: string

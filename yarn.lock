@@ -18,6 +18,11 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@eai/moji@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@eai/moji/-/moji-1.2.0.tgz#a225577c3e10418c0aba4276c994f3e78334c1a2"
+  integrity sha512-ozP0GL0F8QUuKqj5v18lO++dhtcIMOuKP64OnFhQsk8LANhPdvYBfE33TZB06PC600s2Awy+v2dS+6CQu7lovA==
+
 "@fortawesome/fontawesome-common-types@^0.2.25":
   version "0.2.25"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.25.tgz#6df015905081f2762e5cfddeb7a20d2e9b16c786"

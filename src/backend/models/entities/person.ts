@@ -4,7 +4,7 @@ import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
 import { DCompany } from "./company"
 
-@Entity()
+@Entity("person")
 export class DPerson {
   @PrimaryColumn(id())
   public id: string

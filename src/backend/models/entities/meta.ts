@@ -3,7 +3,7 @@ import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
 import { DDriveFile } from "./driveFile"
 
-@Entity()
+@Entity("meta")
 export class DMeta {
   @PrimaryColumn(id())
   public id: string

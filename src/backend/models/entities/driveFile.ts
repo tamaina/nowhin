@@ -2,7 +2,7 @@
 import { Entity, PrimaryColumn, Column } from "typeorm"
 import { id } from "../id"
 
-@Entity()
+@Entity("drive_file")
 export class DDriveFile {
   @PrimaryColumn(id())
   public id: string

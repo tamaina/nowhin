@@ -4,7 +4,7 @@ import { DUsers } from "../../models/"
 import { genEAID12 } from "../../misc/genEAID12"
 
 export async function makeUser({ name, password }: { name: string, password: string }) {
-  const pwhash = await hash(password, 16)
+  const pwhash = await hash(password, 8)
 
   return DUsers.save({
     id: genEAID12(),

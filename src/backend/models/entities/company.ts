@@ -3,7 +3,7 @@ import { Entity, PrimaryColumn, Column } from "typeorm"
 import { id } from "../id"
 import { DPerson } from "./person"
 
-@Entity()
+@Entity("company")
 export class DCompany {
   @PrimaryColumn(id())
   public id: string

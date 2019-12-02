@@ -3,7 +3,7 @@ import { Entity, PrimaryColumn, Column, Index, JoinColumn, ManyToOne } from "typ
 import { id } from "../id"
 import { DWork } from "./work"
 
-@Entity()
+@Entity("order")
 export class DOrder {
   @PrimaryColumn(id())
   public id: string

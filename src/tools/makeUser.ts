@@ -6,12 +6,12 @@ export default () => inquirer.prompt([
   {
     type: "input",
     name: "name",
-    message: "name",
+    message: "ユーザー名",
     default: "user"
   }, {
-    type: "input",
+    type: "password",
     name: "password",
-    message: "password"
+    message: "パスワード"
   }
 ]).then(makeUser).then(user => console.log("make", user))
 .then(() => DUsers.findOne({ name: "user" }))

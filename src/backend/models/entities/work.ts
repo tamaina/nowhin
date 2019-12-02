@@ -6,7 +6,7 @@ import { DPerson } from "./person"
 import { DDriveFile } from "./driveFile"
 import { DOrder } from "./order"
 
-@Entity()
+@Entity("work")
 export class DWork {
   @PrimaryColumn(id())
   public id: string

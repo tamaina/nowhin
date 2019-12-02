@@ -5,7 +5,7 @@ import { DCompany } from "./company"
 import { DPerson } from "./person"
 import { DOrder } from "./order"
 
-@Entity()
+@Entity("bill")
 export class DBill {
   @PrimaryColumn(id())
   public id: string
