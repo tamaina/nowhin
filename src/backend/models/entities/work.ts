@@ -1,32 +1,39 @@
 // 仕事
 import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
+import { ObjectType, Field, ID } from "type-graphql"
 import { id } from "../id"
-import { DCompany } from "./company"
-import { DPerson } from "./person"
-import { DDriveFile } from "./driveFile"
+import { Company } from "./company"
+import { Person } from "./person"
+import { DriveFile } from "./driveFile"
 import { DOrder } from "./order"
 
 @Entity("work")
-export class DWork {
+@ObjectType()
+export class Work {
   @PrimaryColumn(id())
+  @Field(type => ID)
   public id: string
 
   @Column()
+  @Field()
   public createdAt: Date
 
   @Index()
   @Column()
+  @Field()
   public lastOrderedAt: Date
 
   @Column("varchar", {
     length: 256
   })
+  @Field()
   public name: string
 
   @Column("varchar", {
     length: 128,
     array: true
   })
+  @Field(type => [String])
   public identifiers: string[]
 
   @Index()
@@ -34,6 +41,7 @@ export class DWork {
     ...id,
     array: true
   })
+  @Field(type => [String])
   public orderIds: DOrder["id"][]
 
   @Index()
@@ -42,26 +50,30 @@ export class DWork {
     array: true,
     default: "{}"
   })
-  public fileIds: DDriveFile["id"][]
+  @Field(type => [String])
+  public fileIds: DriveFile["id"][]
 
   @Column("varchar", {
     length: 8192
   })
+  @Field()
   public memo: string
 
-  @ManyToOne(type => DCompany, {
+  @ManyToOne(type => Company, {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
-  public ordererCompany?: DCompany
+  @Field(type => Company)
+  public ordererCompany?: Company
 
-  @ManyToOne(type => DPerson, {
+  @ManyToOne(type => Person, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
-  public ordererPerson?: DPerson
+  @Field(type => Person)
+  public ordererPerson?: Person
 
-  constructor(data: Partial<DWork>) {
+  constructor(data: Partial<Work>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {

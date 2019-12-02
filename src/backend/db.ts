@@ -12,7 +12,7 @@ export function initDb() {
   return createConnection({
     type: "postgres",
     ...config.db,
-    synchronize: false,
+    synchronize: true,
     dropSchema: false,
     entities,
     logging: true,

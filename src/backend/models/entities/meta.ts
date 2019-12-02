@@ -1,7 +1,7 @@
 // 設定
 import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { DDriveFile } from "./driveFile"
+import { DriveFile } from "./driveFile"
 
 @Entity("meta")
 export class DMeta {
@@ -16,11 +16,11 @@ export class DMeta {
   @Column("varchar", {
     length: 128
   })
-  public bannerId: DDriveFile["id"]
+  public bannerId: DriveFile["id"]
 
-  @OneToOne(type => DDriveFile)
+  @OneToOne(type => DriveFile)
   @JoinColumn()
-  public banner: DDriveFile
+  public banner: Promise<DriveFile>
 
   constructor(data: Partial<DMeta>) {
     if (data == null) return

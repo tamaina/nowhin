@@ -1,9 +1,9 @@
 // 納品書
 import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { DCompany } from "./company"
+import { Company } from "./company"
 import { DOrder } from "./order"
-import { DPerson } from "./person"
+import { Person } from "./person"
 
 @Entity("deliver_sheet")
 export class DDeliverSheet {
@@ -14,17 +14,17 @@ export class DDeliverSheet {
   @Column()
   public createdAt: Date
 
-  @ManyToOne(type => DCompany, {
+  @ManyToOne(type => Company, {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
-  public ordererCompany?: DCompany
+  public ordererCompany?: Promise<Company>
 
-  @ManyToOne(type => DPerson, {
+  @ManyToOne(type => Person, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
-  public ordererPerson?: DPerson
+  public ordererPerson?: Promise<Person>
 
   @Index()
   @Column("varchar", {

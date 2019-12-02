@@ -1,13 +1,13 @@
 import { DBill } from "./entities/bill"
-import { DCompany } from "./entities/company"
+import { Company } from "./entities/company"
 import { DDeliverSheet } from "./entities/deliverSheet"
-import { DDriveFile } from "./entities/driveFile"
+import { DriveFile } from "./entities/driveFile"
 import { DMeta } from "./entities/meta"
 import { DOrder } from "./entities/order"
-import { DPerson } from "./entities/person"
+import { Person } from "./entities/person"
 import { DUser } from "./entities/user"
-import { DWork } from "./entities/work"
+import { Work } from "./entities/work"
 
 export const entities = [
-  DBill, DCompany, DDeliverSheet, DDriveFile, DMeta, DOrder, DPerson, DUser, DWork
+  DBill, Company, DDeliverSheet, DriveFile, DMeta, DOrder, Person, DUser, Work
 ]

@@ -1,8 +1,8 @@
 // 請求書
 import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
-import { DCompany } from "./company"
-import { DPerson } from "./person"
+import { Company } from "./company"
+import { Person } from "./person"
 import { DOrder } from "./order"
 
 @Entity("bill")
@@ -14,17 +14,17 @@ export class DBill {
   @Column()
   public createdAt: Date
 
-  @ManyToOne(type => DCompany, {
+  @ManyToOne(type => Company, {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
-  public ordererCompany?: string
+  public ordererCompany?: Promise<Company>
 
-  @ManyToOne(type => DPerson, {
+  @ManyToOne(type => Person, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
-  public ordererPerson?: string
+  public ordererPerson?: Promise<Person>
 
   @Index()
   @Column("varchar", {

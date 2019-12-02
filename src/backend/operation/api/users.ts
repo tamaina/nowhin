@@ -3,6 +3,7 @@ import { Resolver, Query, Arg, ObjectType, Field, ID } from "type-graphql"
 import { DUsers } from "../../models"
 import { compare } from "bcryptjs"
 import { makeUser } from "../services/makeUser"
+import { auth } from "../services/auth"
 
 @ObjectType()
 class AUser {
@@ -22,7 +23,7 @@ class AUserSignin {
   i: string
 }
 
-@Resolver()
+@Resolver(of => AUser)
 export class AUsers {
   @Query(returns => AUser)
   async "user"(
@@ -59,7 +60,7 @@ export class AUsers {
     @Arg("name") name: string,
     @Arg("password") password: string
   ): Promise<AUser> {
-    if (!(await DUsers.findOne({ i }))) throw Error("認証できませんでした。")
+    await auth(i)
 
     const { id, createdAt } = await makeUser({ name, password })
     return { id, createdAt, name }

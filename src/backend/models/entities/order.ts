@@ -1,7 +1,7 @@
 // 受注
 import { Entity, PrimaryColumn, Column, Index, JoinColumn, ManyToOne } from "typeorm"
 import { id } from "../id"
-import { DWork } from "./work"
+import { Work } from "./work"
 
 @Entity("order")
 export class DOrder {
@@ -25,11 +25,11 @@ export class DOrder {
 
   @Index()
   @Column(id())
-  public workId: DWork["id"]
+  public workId: Work["id"]
 
-  @ManyToOne(type => DWork)
+  @ManyToOne(type => Work)
   @JoinColumn()
-  public work : DWork
+  public work : Promise<Work>
 
   @Column("integer", {
     default: 1
