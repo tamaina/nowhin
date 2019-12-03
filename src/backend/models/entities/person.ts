@@ -15,8 +15,10 @@ export class Person {
   @Field()
   public createdAt: Date
 
-  @Column("varchar", {
-    length: 128
+  @Column({
+    type: "varchar",
+    length: 128,
+    collation: "ja-x-icu"
   })
   @Field()
   public name: string

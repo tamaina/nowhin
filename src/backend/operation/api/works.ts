@@ -65,20 +65,20 @@ export class AWorks {
     if (typeof fileIds === "object") q.fileIds = fileIds
     if (ordererCompanyId === "") q.ordererCompany = null
     else if (typeof ordererCompanyId === "string") q.ordererCompany = await DCompanies.findOne({ id: ordererCompanyId })
-    if (ordererPersonId === "") q.ordererCompany = null
+    if (ordererPersonId === "") q.ordererPerson = null
     else if (typeof ordererPersonId === "string") q.ordererPerson = await DPeople.findOne({ id: ordererPersonId })
 
     return DWorks.save(q)
   }
 
-  @Query(returns => Work)
+  @Query(returns => ManyWorks)
   async workShow(
     @Arg("id") id: string
   ): Promise<Work> {
     return await DWorks.findOne({ id })
   }
 
-  @Query(returns => [Work])
+  @Query(returns => ManyWorks)
   async worksSearch(
     @Arg("i") i: string,
     @Arg("skip", type => Int, { defaultValue: 0 }) skip: number,
@@ -91,13 +91,15 @@ export class AWorks {
     await auth(i)
 
     let b = DWorks.createQueryBuilder("work")
+      .leftJoinAndSelect("work.ordererCompany", "ordererCompany")
+      .leftJoinAndSelect("work.ordererPerson", "ordererPerson")
 
     if (text) {
       if (fileId || ordererPersonId || ordererCompanyId) throw Error("text以外の引数は無視されます。")
 
       const q = `%${text}%`
-      b.where(`COLLATE und-x-icu :q = ANY (work.identifiers)`, { q })
-        .orWhere(`COLLATE und-x-icu work.name like :q`, { q })
+      b.where(`:q = ANY (work.identifiers)`, { q })
+        .orWhere(`work.name like :q`, { q })
     } else if (fileId) {
       if (ordererPersonId || ordererCompanyId) throw Error("fileId以外の引数は無視されます。")
 
@@ -105,11 +107,9 @@ export class AWorks {
     } else if (ordererPersonId) {
       if (ordererPersonId) throw Error("ordererPersonId以外の引数は無視されます。")
 
-      b.leftJoin("work.ordererPerson", "ordererPerson")
-        .where("ordererPerson.id = :id", { id: ordererPersonId })
+      b.where("ordererPerson.id = :id", { id: ordererPersonId })
     } else if (ordererCompanyId) {
-      b.leftJoin("work.ordererCompany", "ordererCompany")
-        .where("ordererCompany.id = :id", { id: ordererCompanyId })
+      b.where("ordererCompany.id = :id", { id: ordererCompanyId })
     } else {
       throw Error("いずれかの引数を渡してください。")
     }

@@ -64,7 +64,7 @@ export class ACompanies {
     return await DCompanies.findOne({ id })
   }
 
-  @Query(returns => [Company])
+  @Query(returns => ManyCompanies)
   async companiesSearch(
     @Arg("i") i: string,
     @Arg("skip", type => Int, { defaultValue: 0 }) skip: number,

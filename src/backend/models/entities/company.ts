@@ -15,8 +15,10 @@ export class Company {
   @Field()
   public createdAt: Date
 
-  @Column("varchar", {
-    length: 64
+  @Column({
+    type: "varchar",
+    length: 64,
+    collation: "ja-x-icu"
   })
   @Field()
   public name: string

@@ -23,16 +23,20 @@ export class Work {
   @Field({ nullable: true })
   public lastOrderedAt?: Date
 
-  @Column("varchar", {
-    length: 256
+  @Column({
+    type: "varchar",
+    length: 256,
+    collation: "ja-x-icu"
   })
   @Field()
   public name: string
 
-  @Column("varchar", {
+  @Column({
+    type: "varchar",
     length: 128,
     array: true,
-    default: "{}"
+    default: "{}",
+    collation: "ja-x-icu"
   })
   @Field(type => [String], {
     nullable: true
