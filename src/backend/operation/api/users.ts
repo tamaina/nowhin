@@ -1,4 +1,3 @@
-import "reflect-metadata"
 import { Resolver, Query, Arg, ObjectType, Field, ID } from "type-graphql"
 import { DUsers } from "../../models"
 import { compare } from "bcryptjs"
@@ -26,7 +25,7 @@ class AUserSignin {
 @Resolver(of => AUser)
 export class AUsers {
   @Query(returns => AUser)
-  async "user"(
+  async user(
     @Arg("name", { nullable: true }) _name?: string,
     @Arg("id", { nullable: true }) _id?: string
   ): Promise<AUser> {
@@ -41,7 +40,7 @@ export class AUsers {
   }
 
   @Query(returns => AUserSignin)
-  async "signin"(
+  async signin(
     @Arg("name") name: string,
     @Arg("password") password: string
   ): Promise<AUserSignin> {
@@ -55,7 +54,7 @@ export class AUsers {
   }
 
   @Query(returns => AUser)
-  async "users:add"(
+  async userAdd(
     @Arg("i") i: string,
     @Arg("name") name: string,
     @Arg("password") password: string

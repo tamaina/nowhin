@@ -1,4 +1,5 @@
 // tslint:disable: no-var-requires
+import "reflect-metadata"
 import * as log from "fancy-log"
 import { initDb } from "./db"
 import { pkg } from "./pkg"

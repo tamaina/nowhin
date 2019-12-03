@@ -1,4 +1,3 @@
-import "reflect-metadata"
 import { Resolver, Query, Arg, Int, ObjectType, Field } from "type-graphql"
 import { DCompanies } from "../../models"
 import { auth } from "../services/auth"
@@ -8,7 +7,7 @@ import { Person } from "../../models/entities/person"
 
 @ObjectType()
 class ManyCompanies {
-  @Field()
+  @Field(type => [Company])
   companies: Company[]
 
   @Field()
@@ -18,14 +17,13 @@ class ManyCompanies {
 @Resolver(of => Company)
 export class ACompanies {
   @Query(returns => Company)
-  async "companies:create"(
+  async companiyCreate(
     @Arg("name") name: string,
-    @Arg("shortName", { defaultValue: name }) shortName: string,
-    @Arg("members", { defaultValue: [] }) members: Person["id"][],
-    @Arg("postNumber", { defaultValue: null }) postNumber: string,
-    @Arg("address", { defaultValue: null }) _address: string[] | string
+    @Arg("shortName", { defaultValue: null }) shortName: string,
+    @Arg("members", type => [String], { defaultValue: [] }) members: Person["id"][],
+    @Arg("postNumber", type => String, { defaultValue: null }) postNumber: string,
+    @Arg("address", type => [String], { defaultValue: null }) address: string[]
   ): Promise<Company> {
-    const address = typeof _address === "string" ? [_address] : _address
 
     return DCompanies.save({
       id: genEAID12(),
@@ -39,16 +37,14 @@ export class ACompanies {
   }
 
   @Query(returns => Company)
-  async "companies:update"(
+  async companyUpdate(
     @Arg("id") id: string,
     @Arg("name", { defaultValue: null }) name?: string,
     @Arg("shortName", { defaultValue: null }) shortName?: string,
-    @Arg("members", { defaultValue: null }) members?: Person["id"][],
-    @Arg("postNumber", { defaultValue: null }) postNumber?: string,
-    @Arg("address", { defaultValue: null }) _address?: string[] | string
+    @Arg("members", type => [String], { defaultValue: null }) members?: Person["id"][],
+    @Arg("postNumber", type => String, { defaultValue: null }) postNumber?: string,
+    @Arg("address", type => [String], { defaultValue: null }) address?: string[]
   ): Promise<Company> {
-    const address = typeof _address === "string" ? [_address] : _address
-
     const q = {} as Company
 
     if (id) q.id = id
@@ -62,19 +58,19 @@ export class ACompanies {
   }
 
   @Query(returns => Company)
-  async "companies:show"(
+  async companyShow(
     @Arg("id") id: string
   ): Promise<Company> {
     return await DCompanies.findOne({ id })
   }
 
   @Query(returns => [Company])
-  async "companies:search"(
+  async companiesSearch(
     @Arg("i") i: string,
     @Arg("skip", type => Int, { defaultValue: 0 }) skip: number,
     @Arg("take", type => Int, { defaultValue: 15 }) take: number,
     @Arg("text", { nullable: true }) text?: string,
-    @Arg("memberId", { nullable: true }) memberId?: string
+    @Arg("memberId", type => String, { nullable: true }) memberId?: Person["id"]
   ): Promise<ManyCompanies> {
     await auth(i)
 

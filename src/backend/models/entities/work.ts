@@ -14,14 +14,14 @@ export class Work {
   @Field(type => ID)
   public id: string
 
-  @Column()
-  @Field()
-  public createdAt: Date
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  public createdAt?: Date
 
   @Index()
-  @Column()
-  @Field()
-  public lastOrderedAt: Date
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  public lastOrderedAt?: Date
 
   @Column("varchar", {
     length: 256
@@ -31,26 +31,35 @@ export class Work {
 
   @Column("varchar", {
     length: 128,
-    array: true
+    array: true,
+    default: "{}"
   })
-  @Field(type => [String])
-  public identifiers: string[]
+  @Field(type => [String], {
+    nullable: true
+  })
+  public identifiers?: string[]
 
   @Index()
   @Column("varchar", {
     ...id,
-    array: true
+    array: true,
+    nullable: true
   })
-  @Field(type => [String])
+  @Field(type => [String], {
+    nullable: true
+  })
   public orderIds: DOrder["id"][]
 
   @Index()
   @Column("varchar", {
     ...id,
     array: true,
-    default: "{}"
+    default: "{}",
+    nullable: true
   })
-  @Field(type => [String])
+  @Field(type => [String], {
+    nullable: true
+  })
   public fileIds: DriveFile["id"][]
 
   @Column("varchar", {
@@ -63,14 +72,14 @@ export class Work {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
-  @Field(type => Company)
+  @Field(type => Company, { nullable: true })
   public ordererCompany?: Company
 
   @ManyToOne(type => Person, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
-  @Field(type => Person)
+  @Field(type => Person, { nullable: true })
   public ordererPerson?: Person
 
   constructor(data: Partial<Work>) {

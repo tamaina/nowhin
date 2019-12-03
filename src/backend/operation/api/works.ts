@@ -1,4 +1,3 @@
-import "reflect-metadata"
 import { Resolver, Query, Arg, Int, ObjectType, Field } from "type-graphql"
 import { DWorks, DCompanies, DPeople } from "../../models"
 import { auth } from "../services/auth"
@@ -11,7 +10,7 @@ import { DriveFile } from "../../models/entities/driveFile"
 
 @ObjectType()
 class ManyWorks {
-  @Field()
+  @Field(type => [Work])
   works: Work[]
 
   @Field()
@@ -21,15 +20,15 @@ class ManyWorks {
 @Resolver(of => Work)
 export class AWorks {
   @Query(returns => Work)
-  async "works:create"(
-    @Arg("name") name: string,
-    @Arg("identifiers", { defaultValue: [] }) identifiers: string[],
+  async workCreate(
+    @Arg("name", type => String) name: string,
+    @Arg("identifiers", type => [String], { defaultValue: [] }) identifiers: string[],
     @Arg("memo", { defaultValue: "" }) memo: string,
-    @Arg("orderIds", { defaultValue: [] }) orderIds: DOrder["id"][],
-    @Arg("fileIds", { defaultValue: [] }) fileIds: DriveFile["id"][],
-    @Arg("ordererCompanyId", { nullable: true }) ordererCompanyId?: Company["id"],
-    @Arg("ordererPersonId", { nullable: true }) ordererPersonId?: Person["id"],
-  ): Promise<Work> {
+    @Arg("orderIds", type => [String], { defaultValue: [] }) orderIds: DOrder["id"][],
+    @Arg("fileIds", type => [String], { defaultValue: [] }) fileIds: DriveFile["id"][],
+    @Arg("ordererCompanyId", type => String, { nullable: true }) ordererCompanyId?: Company["id"],
+    @Arg("ordererPersonId", type => String, { nullable: true }) ordererPersonId?: Person["id"],
+    ): Promise<Work> {
     return DWorks.save({
       id: genEAID12(),
       createdAt: new Date(),
@@ -43,19 +42,22 @@ export class AWorks {
   }
 
   @Query(returns => Work)
-  async "works:update"(
+  async workUpdate(
     @Arg("id") id: string,
-    @Arg("name", { nullable: true }) name?: string,
-    @Arg("identifiers", { nullable: true }) identifiers?: string[],
+    @Arg("name", type => String, { nullable: true }) name?: string,
+    @Arg("identifiers", type => [String], { nullable: true }) identifiers?: string[],
     @Arg("memo", { nullable: true }) memo?: string,
-    @Arg("orderIds", { nullable: true }) orderIds?: string[],
-    @Arg("fileIds", { nullable: true }) fileIds?: string[],
-    @Arg("ordererCompanyId", { nullable: true }) ordererCompanyId?: Company["id"],
-    @Arg("ordererPersonId", { nullable: true }) ordererPersonId?: Person["id"],
+    @Arg("orderIds", type => [String], { nullable: true }) orderIds?: string[],
+    @Arg("fileIds", type => [String], { nullable: true }) fileIds?: DriveFile["id"][],
+    @Arg("ordererCompanyId", type => String, { nullable: true }) ordererCompanyId?: Company["id"],
+    @Arg("ordererPersonId", type => String, { nullable: true }) ordererPersonId?: Person["id"],
   ): Promise<Work> {
-    const q = {} as Work
+    const q = { id } as Work
 
-    if (id) q.id = id
+    console.log("name", name)
+    console.log("memo", memo)
+    console.log("identifiers", identifiers)
+    console.log("ordererCompanyId", ordererCompanyId)
     if (typeof name === "string") q.name = name
     if (typeof memo === "string") q.memo = memo
     if (typeof identifiers === "object") q.identifiers = identifiers
@@ -70,21 +72,21 @@ export class AWorks {
   }
 
   @Query(returns => Work)
-  async "works:show"(
+  async workShow(
     @Arg("id") id: string
   ): Promise<Work> {
     return await DWorks.findOne({ id })
   }
 
   @Query(returns => [Work])
-  async "works:search"(
+  async worksSearch(
     @Arg("i") i: string,
     @Arg("skip", type => Int, { defaultValue: 0 }) skip: number,
     @Arg("take", type => Int, { defaultValue: 15 }) take: number,
     @Arg("text", { nullable: true }) text?: string,
     @Arg("fileId", { nullable: true }) fileId?: string,
-    @Arg("ordererCompanyId", { nullable: true }) ordererCompanyId?: string,
-    @Arg("ordererPersonId", { nullable: true }) ordererPersonId?: string,
+    @Arg("ordererCompanyId", type => String, { nullable: true }) ordererCompanyId?: Company["id"],
+    @Arg("ordererPersonId", type => String, { nullable: true }) ordererPersonId?: Person["id"],
   ): Promise<ManyWorks> {
     await auth(i)
 

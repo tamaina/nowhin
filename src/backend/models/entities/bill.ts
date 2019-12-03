@@ -29,7 +29,8 @@ export class DBill {
   @Index()
   @Column("varchar", {
     ...id(),
-    array: true
+    array: true,
+    nullable: true
   })
   public orderIds: DOrder["id"][]
 

@@ -13,6 +13,6 @@ export default () => inquirer.prompt([
     name: "password",
     message: "パスワード"
   }
-]).then(makeUser).then(user => console.log("make", user))
-.then(() => DUsers.findOne({ name: "user" }))
+]).then(makeUser)
+.then(({ id }) => DUsers.findOne({ id }))
 .then(res => console.log("findOne", res))

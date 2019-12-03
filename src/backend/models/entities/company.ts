@@ -22,7 +22,8 @@ export class Company {
   public name: string
 
   @Column("varchar", {
-    length: 64
+    length: 64,
+    default: ""
   })
   @Field()
   public shortName: string
@@ -31,7 +32,7 @@ export class Company {
     length: 16,
     nullable: true
   })
-  @Field()
+  @Field({ nullable: true })
   public postNumber?: string
 
   @Column("varchar", {
@@ -39,15 +40,20 @@ export class Company {
     nullable: true,
     array: true
   })
-  @Field(type => [String])
+  @Field(type => [String], {
+    nullable: true
+  })
   public address?: string[]
 
   @Column({
     ...id(),
     array: true,
-    default: "{}"
+    default: "{}",
+    nullable: true
   })
-  @Field(type => [String])
+  @Field(type => [String], {
+    nullable: true
+  })
   public memberIds: Person["id"][]
 
   constructor(data: Partial<Company>) {
