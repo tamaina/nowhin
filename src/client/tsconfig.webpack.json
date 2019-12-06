@@ -13,12 +13,10 @@
             }
         ],
         "types": [
-            "webpack-env",
             "vuetify"
         ]
     },
-    "exclude": ["backend"],
     "include": [
-        "src/client/**/*"
+        "./**/*"
     ]
 }

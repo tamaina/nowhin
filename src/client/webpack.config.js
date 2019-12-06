@@ -1,22 +1,25 @@
-const { join } = require("path")
+const { resolve } = require("path")
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin")
-const MonocoEditorPlugin = require("monaco-editor-webpack-plugin")
+
+const implementation = require("sass")
+const fiber = require("fibers")
 
 module.exports = {
   entry: {
-    app: "./main.ts"
+    app: resolve(__dirname, "main.ts")
   },
   output: {
     filename: "[name].js",
-    path: join(__dirname, "../../built/client"),
+    path: resolve(__dirname, "../../built/client"),
     publicPath: "/assets/"
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".vue", ".vuex", ".styl"],
-    modules: ["node_modules"],
+    extensions: [".ts", ".tsx", ".js", ".vue", ".vuex", ".styl", ".sass", ".scss"],
+    modules: [resolve(process.cwd(), "node_modules")],
     alias: {
-      vue: "vue/dist/vue.js"
+      vue: resolve(process.cwd(), "node_modules/vue/dist/vue.js"),
+      "@": __dirname
     }
   },
   module: {
@@ -46,7 +49,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.sass$/,
+        test: /\.s[ac]ss$/,
         use: [
           "vue-style-loader",
           "css-loader",
@@ -54,7 +57,11 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              indentedSyntax: true
+              implementation,
+              sassOptions: {
+                fiber,
+                indentedSyntax: true
+              }
             }
           }
         ]
@@ -77,20 +84,25 @@ module.exports = {
           },
           "postcss-loader"
         ]
+      },
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        use: [
+          "file-loader"
+        ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          "file-loader",
+          "svgo-loader"
+        ]
       }
     ]
   },
   plugins: [
     new VueLoaderPlugin(),
-    new VuetifyLoaderPlugin(),
-    new MonocoEditorPlugin({
-      // https://github.com/Microsoft/monaco-editor-webpack-plugin#options
-      // Include a subset of languages support
-      // Some language extensions like typescript are so huge that may impact build performance
-      // e.g. Build full languages support with webpack 4.0 takes over 80 seconds
-      // Languages are loaded on demand at runtime
-      languages: ["javascript", "css", "html"]
-    })
+    new VuetifyLoaderPlugin()
   ],
   mode: "production"
 }

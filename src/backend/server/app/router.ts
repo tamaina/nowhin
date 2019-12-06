@@ -7,7 +7,7 @@ const router = new Router()
 
 router.get("/assets*", async (ctx, next) => {
   await send(ctx as any, ctx.path.slice(7), {
-    root: resolve(__dirname, "../../../built/client")
+    root: resolve(__dirname, "../../../../built/client")
   })
 })
 

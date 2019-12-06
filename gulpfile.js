@@ -37,19 +37,6 @@ gulp.task("tsc", cb => {
     })
 })
 
-gulp.task("locales", cb => {
-  gulp.src("./locales/*.yaml")
-    .pipe($.yaml({ schema: "DEFAULT_SAFE_SCHEMA" }))
-    .pipe(gulp.dest("./built/assets/locales/"))
-    .on("end", () => {
-      log(colors.green("☑ Locale Files Converted"))
-      cb()
-    })
-    .on("error", err => {
-      cb(err)
-    })
-})
-
 gulp.task("copy:files", cb => {
   gulp.src(["./src/**/*", "!**/*.ts", "!**/*.vue", "!**/*.js"])
     .pipe(gulp.dest("./built/"))
@@ -70,8 +57,7 @@ gulp.task("default",
     gulp.parallel(
       "tsc",
       "webpack",
-      "copy:files",
-      "locales"
+      "copy:files"
     ),
     cb => { cb() }
   ))
@@ -82,12 +68,11 @@ gulp.task("zip", cb => {
     "LICENSE",
     "package.json",
     "yarn.lock",
-    ".config.yaml",
+    ".config/example.yaml",
+    "ormconfig.ts",
     "*.bat",
-    "salt.js",
-    "views/**/*",
-    "datastore/db/data/queries.nedb",
     "locales/**/*",
+    "lib/**/*",
     "built/**/*"
   ], { base: "." })
     .pipe($.zip(`svg-telopper-v${pkg.version}.zip`))
