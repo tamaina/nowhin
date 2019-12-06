@@ -1,6 +1,7 @@
 const { resolve } = require("path")
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin")
+const TerserPlugin = require("terser-webpack-plugin")
 
 const implementation = require("sass")
 const fiber = require("fibers")
@@ -104,5 +105,9 @@ module.exports = {
     new VueLoaderPlugin(),
     new VuetifyLoaderPlugin()
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
+  },
   mode: "production"
 }
