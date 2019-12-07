@@ -1,5 +1,5 @@
 // ファイル
-import { Entity, PrimaryColumn, Column } from "typeorm"
+import { Entity, PrimaryColumn, Column, Index } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import { id } from "../id"
 
@@ -25,6 +25,13 @@ export class DriveFile {
   })
   @Field()
   public type: string
+
+  @Index()
+  @Column("varchar", {
+    length: 32
+  })
+  @Field()
+  public checksum: string
 
   constructor(data: Partial<DriveFile>) {
     if (data == null) return
