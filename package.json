@@ -10,11 +10,9 @@
   "author": "tamaina",
   "license": "ISC",
   "browsers": "defaults",
-  "resolutions": {
-    "terser-webpack-plugin": "^2.2.1"
-  },
   "dependencies": {
     "@eai/moji": "^1.2.0",
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "cafy": "^15.1.1",
     "class-validator": "^0.11.0",

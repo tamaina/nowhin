@@ -13,6 +13,9 @@ const pkg = require("./package.json")
 
 gulp.task("webpack", cb => {
   webpackStream(wpackconf, webpack)
+    .on("error", err => {
+      cb(err)
+    })
     .pipe(gulp.dest("./built/client/"))
     .on("end", () => {
       log(colors.green("☑ Webpack Compile Completed"))

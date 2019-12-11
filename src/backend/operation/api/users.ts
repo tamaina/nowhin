@@ -3,6 +3,8 @@ import { DUsers } from "../../models"
 import { compare } from "bcryptjs"
 import { makeUser } from "../services/makeUser"
 import { auth } from "../services/auth"
+import { hash } from "bcryptjs"
+import rndstr from "rndstr"
 
 @ObjectType()
 class AUser {
@@ -14,6 +16,9 @@ class AUser {
 
   @Field()
   name: string
+
+  @Field()
+  i?: string
 }
 
 @ObjectType()
@@ -54,7 +59,7 @@ export class AUsers {
   }
 
   @Query(returns => AUser)
-  async userAdd(
+  async signup(
     @Arg("i") i: string,
     @Arg("name") name: string,
     @Arg("password") password: string
@@ -63,5 +68,17 @@ export class AUsers {
 
     const { id, createdAt } = await makeUser({ name, password })
     return { id, createdAt, name }
+  }
+
+  @Query(returns => AUser)
+  async passwordUpdate(
+    @Arg("i") i: string,
+    @Arg("password") password: string
+  ): Promise<AUser> {
+    const user = await auth(i)
+    user.pwhash = await hash(password, 8)
+    user.i = rndstr('a-zA-Z0-9', 16)
+    const { id, createdAt } = await DUsers.save({})
+    return { id, createdAt, name, i }
   }
 }
