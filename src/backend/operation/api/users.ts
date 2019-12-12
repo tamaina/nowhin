@@ -21,12 +21,6 @@ class AUser {
   i?: string
 }
 
-@ObjectType()
-class AUserSignin {
-  @Field(type => ID)
-  i: string
-}
-
 @Resolver(of => AUser)
 export class AUsers {
   @Query(returns => AUser)
@@ -44,18 +38,19 @@ export class AUsers {
     return { id, createdAt, name }
   }
 
-  @Query(returns => AUserSignin)
+  @Query(returns => AUser)
   async signin(
     @Arg("name") name: string,
     @Arg("password") password: string
-  ): Promise<AUserSignin> {
+  ): Promise<AUser> {
     const user = await DUsers.findOne({ name })
     if (!user) throw Error("ユーザーが見つかりませんでした。")
 
     const same = await compare(password, user.pwhash!)
     if (!same) throw Error("パスワードが違います。")
 
-    return { i: user.i }
+    delete user.pwhash
+    return user
   }
 
   @Query(returns => AUser)

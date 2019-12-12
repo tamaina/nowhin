@@ -2,13 +2,16 @@
   <div id="signin">
     <v-form>
       <v-container>
-        <v-text-field v-model="name" required label="ユーザー名"></v-text-field>
+        <v-text-field
+          v-model="name"
+          required label="ユーザー名"></v-text-field>
         <v-text-field
           v-model="password"
           @click:append="showpw = !showpw"
           :append-icon="showpw ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showpw ? 'text' : 'password'"
           required
+          @keydown.enter="this.signin"
           label="パスワード"></v-text-field>
         <v-btn @click="this.signin">サインイン</v-btn>
       </v-container>
@@ -35,19 +38,19 @@ export default Vue.extend({
 
   methods: {
     signin() {
+      const $store = this.$store
       axios({
         url: "/api",
         method: "post",
         data: {
           query: `{
   signin(name: ${JSON.stringify(this.name)}, password: ${JSON.stringify(this.password)}) {
-    i
+    id, i, name
   }
 }`
         }
       }).then(res => {
-        const i = res.data.data.signin.i
-        alert(i)
+        $store.commit("me/set", res.data.data.signin)
       })
     }
   }

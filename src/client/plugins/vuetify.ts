@@ -1,8 +1,15 @@
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
+import Vue from "vue"
+import Vuetify from "vuetify/lib"
+import { mdiMenu } from "@mdi/js"
+
 
 Vue.use(Vuetify)
 
-const opts = {}
-
-export default new Vuetify(opts)
+export default new Vuetify({
+  icons: {
+    iconfont: "mdiSvg",
+    values: {
+      menu: mdiMenu
+    }
+  }
+}) as any

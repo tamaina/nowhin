@@ -40,9 +40,7 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.19",
-    "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@fortawesome/vue-fontawesome": "^0.1.6",
+    "@mdi/js": "^4.7.95",
     "@types/async-retry": "^1.4.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/deep-equal": "^1.0.1",
@@ -63,6 +61,7 @@
     "css-loader": "^3.2.0",
     "cssnano": "^4.1.10",
     "del": "5",
+    "dexie": "^2.0.4",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "14",
     "eslint-plugin-import": "^2.18.2",
