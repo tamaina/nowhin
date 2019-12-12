@@ -6,6 +6,6 @@ import { pkg } from "./pkg"
 
 require("events").EventEmitter.defaultMaxListeners = 128
 
-log(`SVG Telopper v${pkg.version} Server Starting...`)
+log(`NowHin v${pkg.version} Server Starting...`)
 
 initDb().then(() => require("./server/index").default())

@@ -11,7 +11,7 @@
           :append-icon="showpw ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showpw ? 'text' : 'password'"
           required
-          @keydown.enter="this.signin"
+          @keydown.enter="signin"
           label="パスワード"></v-text-field>
         <v-btn @click="this.signin">サインイン</v-btn>
       </v-container>
