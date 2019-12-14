@@ -3,10 +3,11 @@ import Vuex from "vuex"
 
 import { set } from "./mutations"
 import me from "./me"
+import db from "./db"
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
   },
   mutations: {
@@ -18,3 +19,8 @@ export default new Vuex.Store({
     me
   }
 })
+
+db.root.toArray().then(es => store.commit("set", Object.fromEntries(es.map(e => [e.key, e.value]))))
+db.me.toArray().then(es => store.commit("me/set", Object.fromEntries(es.map(e => [e.key, e.value]))))
+
+export default store
