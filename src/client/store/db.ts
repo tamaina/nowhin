@@ -1,7 +1,11 @@
 import Dexie from "dexie"
 import { stringsToEnumObj } from "../../misc/stringsToEnumObj"
+import { KeyValue } from "./types"
 
-type KeyValue = { key: string, value: string }
+const tables = ["root", "me"]
+
+const tablesObj = stringsToEnumObj(tables)
+export type Tables = keyof typeof tablesObj
 
 class Db extends Dexie {
   root: Dexie.Table<KeyValue, string>
@@ -9,17 +13,18 @@ class Db extends Dexie {
 
   constructor (dbname: string = "db") {
       super(dbname)
+
       this.version(1).stores({
           root: "++key, value",
           me: "++key, value"
       })
 
-      this.root = this.table("root")
-      this.me = this.table("me")
+      for (const table of tables) {
+        this[table] = this.table(table)
+      }
   }
 }
 
-export default new Db()
+const db = new Db()
 
-const tables = stringsToEnumObj(["root", "me"])
-export type Tables = keyof typeof tables
+export default db

@@ -1,0 +1,7 @@
+{
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": [
+    "./src", // Does not change the process's working directory
+    { "directory": "./src/client", "changeProcessCWD": true }
+  ]
+}

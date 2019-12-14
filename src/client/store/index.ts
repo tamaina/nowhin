@@ -4,6 +4,7 @@ import Vuex from "vuex"
 import { set } from "./mutations"
 import me from "./me"
 import db from "./db"
+import { KeyValue } from "./types"
 
 Vue.use(Vuex)
 
@@ -20,7 +21,9 @@ const store = new Vuex.Store({
   }
 })
 
-db.root.toArray().then(es => store.commit("set", Object.fromEntries(es.map(e => [e.key, e.value]))))
-db.me.toArray().then(es => store.commit("me/set", Object.fromEntries(es.map(e => [e.key, e.value]))))
+const setData = (es: KeyValue[]) => Object.fromEntries(es.map(e => [e.key, JSON.parse(e.value)]))
+
+db.root.toArray().then(es => store.commit("set", setData(es)))
+db.me.toArray().then(es => store.commit("me/set", setData(es)))
 
 export default store
