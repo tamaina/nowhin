@@ -2,16 +2,16 @@
 import { Entity, PrimaryColumn, Column, OneToOne, JoinColumn } from "typeorm"
 import { id } from "../id"
 import { DriveFile } from "./driveFile"
+import { Company } from "./company"
 
 @Entity("meta")
 export class DMeta {
   @PrimaryColumn(id())
   public id: string
 
-  @Column("varchar", {
-    length: 128
-  })
-  public companyName: string
+  @OneToOne(type => Company)
+  @JoinColumn()
+  public myCompany: Company
 
   @Column("varchar", {
     length: 128
@@ -20,7 +20,12 @@ export class DMeta {
 
   @OneToOne(type => DriveFile)
   @JoinColumn()
-  public banner: Promise<DriveFile>
+  public banner: DriveFile
+
+  @Column("varchar", {
+    length: 8192
+  })
+  public memo: string
 
   constructor(data: Partial<DMeta>) {
     if (data == null) return

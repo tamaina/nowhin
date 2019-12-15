@@ -36,6 +36,12 @@ export class Person {
   @Field(type => Company)
   public company: Company
 
+  @Column("varchar", {
+    length: 8192
+  })
+  @Field()
+  public memo: string
+
   constructor(data: Partial<Person>) {
     if (data == null) return
 

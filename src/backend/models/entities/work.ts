@@ -66,12 +66,6 @@ export class Work {
   })
   public fileIds: DriveFile["id"][]
 
-  @Column("varchar", {
-    length: 8192
-  })
-  @Field()
-  public memo: string
-
   @ManyToOne(type => Company, {
     onDelete: 'SET NULL'
   })
@@ -85,6 +79,12 @@ export class Work {
   @JoinColumn()
   @Field(type => Person, { nullable: true })
   public ordererPerson?: Person
+
+  @Column("varchar", {
+    length: 8192
+  })
+  @Field()
+  public memo: string
 
   constructor(data: Partial<Work>) {
     if (data == null) return

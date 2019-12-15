@@ -18,13 +18,13 @@ export class DDeliverSheet {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
-  public ordererCompany?: Promise<Company>
+  public ordererCompany?: Company
 
   @ManyToOne(type => Person, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
-  public ordererPerson?: Promise<Person>
+  public ordererPerson?: Person
 
   @Index()
   @Column("varchar", {

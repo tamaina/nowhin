@@ -58,6 +58,16 @@ export class Company {
   })
   public memberIds: Person["id"][]
 
+  @Column("boolean")
+  @Field()
+  public isOneself: boolean
+
+  @Column("varchar", {
+    length: 8192
+  })
+  @Field()
+  public memo: string
+
   constructor(data: Partial<Company>) {
     if (data == null) return
 

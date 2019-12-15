@@ -29,7 +29,7 @@ export class DOrder {
 
   @ManyToOne(type => Work)
   @JoinColumn()
-  public work : Promise<Work>
+  public work : Work
 
   @Column("integer", {
     default: 1
@@ -51,6 +51,11 @@ export class DOrder {
     length: 16
   })
   public state: "notYetOrdered" | "workInProgress" | "delivered" | "obsolete"
+
+  @Column("varchar", {
+    length: 8192
+  })
+  public memo: string
 
   constructor(data: Partial<DOrder>) {
     if (data == null) return
