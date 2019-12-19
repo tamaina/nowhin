@@ -7,6 +7,7 @@ import { Company } from "./company"
 @Entity("meta")
 export class DMeta {
   @PrimaryColumn(id())
+  
   public id: string
 
   @OneToOne(type => Company)
@@ -23,9 +24,14 @@ export class DMeta {
   public banner: DriveFile
 
   @Column("varchar", {
-    length: 8192
+    ...id,
+    array: true,
+    nullable: true
   })
-  public memo: string
+  /*@Field(type => [String], {
+    nullable: true
+  })*/
+  public noteIds: string[]
 
   constructor(data: Partial<DMeta>) {
     if (data == null) return

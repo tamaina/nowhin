@@ -1,5 +1,5 @@
 // 仕事
-import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn, OneToMany } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import { id } from "../id"
 import { Company } from "./company"
@@ -81,10 +81,14 @@ export class Work {
   public ordererPerson?: Person
 
   @Column("varchar", {
-    length: 8192
+    ...id,
+    array: true,
+    nullable: true
   })
-  @Field()
-  public memo: string
+  @Field(type => [String], {
+    nullable: true
+  })
+  public noteIds: string[]
 
   constructor(data: Partial<Work>) {
     if (data == null) return

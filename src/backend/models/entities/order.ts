@@ -53,9 +53,14 @@ export class DOrder {
   public state: "notYetOrdered" | "workInProgress" | "delivered" | "obsolete"
 
   @Column("varchar", {
-    length: 8192
+    ...id,
+    array: true,
+    nullable: true
   })
-  public memo: string
+  @Field(type => [String], {
+    nullable: true
+  })
+  public noteIds: string[]
 
   constructor(data: Partial<DOrder>) {
     if (data == null) return

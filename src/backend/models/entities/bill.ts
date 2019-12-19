@@ -35,9 +35,14 @@ export class DBill {
   public orderIds: DOrder["id"][]
 
   @Column("varchar", {
-    length: 8192
+    ...id,
+    array: true,
+    nullable: true
   })
-  public memo: string
+  /*@Field(type => [String], {
+    nullable: true
+  })*/
+  public noteIds: string[]
 
   constructor(data: Partial<DBill>) {
     if (data == null) return

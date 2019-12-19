@@ -37,10 +37,14 @@ export class Person {
   public company: Company
 
   @Column("varchar", {
-    length: 8192
+    ...id,
+    array: true,
+    nullable: true
   })
-  @Field()
-  public memo: string
+  @Field(type => [String], {
+    nullable: true
+  })
+  public noteIds: string[]
 
   constructor(data: Partial<Person>) {
     if (data == null) return

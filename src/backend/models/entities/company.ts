@@ -63,10 +63,14 @@ export class Company {
   public isOneself: boolean
 
   @Column("varchar", {
-    length: 8192
+    ...id,
+    array: true,
+    nullable: true
   })
-  @Field()
-  public memo: string
+  @Field(type => [String], {
+    nullable: true
+  })
+  public noteIds: string[]
 
   constructor(data: Partial<Company>) {
     if (data == null) return

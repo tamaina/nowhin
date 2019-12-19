@@ -23,7 +23,7 @@ export class AWorks {
   async workCreate(
     @Arg("name", type => String) name: string,
     @Arg("identifiers", type => [String], { defaultValue: [] }) identifiers: string[],
-    @Arg("memo", { defaultValue: "" }) memo: string,
+    @Arg("noteIds", { defaultValue: [] }) noteIds: string[],
     @Arg("orderIds", type => [String], { defaultValue: [] }) orderIds: DOrder["id"][],
     @Arg("fileIds", type => [String], { defaultValue: [] }) fileIds: DriveFile["id"][],
     @Arg("ordererCompanyId", type => String, { nullable: true }) ordererCompanyId?: Company["id"],
@@ -34,7 +34,7 @@ export class AWorks {
       createdAt: new Date(),
       name,
       identifiers,
-      memo,
+      noteIds,
       orderIds, fileIds,
       ordererCompany: ordererCompanyId ? await DCompanies.findOne({ id: ordererCompanyId }) : null,
       ordererPerson: ordererPersonId ? await DPeople.findOne({ id: ordererPersonId }) : null
@@ -46,7 +46,7 @@ export class AWorks {
     @Arg("id") id: string,
     @Arg("name", type => String, { nullable: true }) name?: string,
     @Arg("identifiers", type => [String], { nullable: true }) identifiers?: string[],
-    @Arg("memo", { nullable: true }) memo?: string,
+    @Arg("noteIds", { nullable: true }) noteIds?: string,
     @Arg("orderIds", type => [String], { nullable: true }) orderIds?: string[],
     @Arg("fileIds", type => [String], { nullable: true }) fileIds?: DriveFile["id"][],
     @Arg("ordererCompanyId", type => String, { nullable: true }) ordererCompanyId?: Company["id"],
@@ -55,11 +55,11 @@ export class AWorks {
     const q = { id } as Work
 
     console.log("name", name)
-    console.log("memo", memo)
+    console.log("noteIds", noteIds)
     console.log("identifiers", identifiers)
     console.log("ordererCompanyId", ordererCompanyId)
     if (typeof name === "string") q.name = name
-    if (typeof memo === "string") q.memo = memo
+    if (typeof noteIds === "object") q.noteIds = noteIds
     if (typeof identifiers === "object") q.identifiers = identifiers
     if (typeof orderIds === "object") q.orderIds = orderIds
     if (typeof fileIds === "object") q.fileIds = fileIds
