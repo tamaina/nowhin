@@ -1,9 +1,10 @@
 // ノート
 import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
-import { Field, ID } from "type-graphql"
+import { ObjectType, Field, ID } from "type-graphql"
 import { id } from "../id"
 
 @Entity("note")
+@ObjectType()
 export class Note {
   @PrimaryColumn(id())
   @Field(type => ID)

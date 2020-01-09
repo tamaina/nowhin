@@ -5,7 +5,7 @@ import { id } from "../id"
 import { Company } from "./company"
 import { Person } from "./person"
 import { DriveFile } from "./driveFile"
-import { DOrder } from "./order"
+import { Order } from "./order"
 
 @Entity("work")
 @ObjectType()
@@ -52,7 +52,7 @@ export class Work {
   @Field(type => [String], {
     nullable: true
   })
-  public orderIds: DOrder["id"][]
+  public orderIds: Order["id"][]
 
   @Index()
   @Column("varchar", {

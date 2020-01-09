@@ -5,7 +5,7 @@ import { Work } from "../../models/entities/work"
 import { genEAID12 } from "../../misc/genEAID12"
 import { Company } from "../../models/entities/company"
 import { Person } from "../../models/entities/person"
-import { DOrder } from "../../models/entities/order"
+import { Order } from "../../models/entities/order"
 import { DriveFile } from "../../models/entities/driveFile"
 
 @ObjectType()
@@ -24,7 +24,7 @@ export class AWorks {
     @Arg("name", type => String) name: string,
     @Arg("identifiers", type => [String], { defaultValue: [] }) identifiers: string[],
     @Arg("noteIds", { defaultValue: [] }) noteIds: string[],
-    @Arg("orderIds", type => [String], { defaultValue: [] }) orderIds: DOrder["id"][],
+    @Arg("orderIds", type => [String], { defaultValue: [] }) orderIds: Order["id"][],
     @Arg("fileIds", type => [String], { defaultValue: [] }) fileIds: DriveFile["id"][],
     @Arg("ordererCompanyId", type => String, { nullable: true }) ordererCompanyId?: Company["id"],
     @Arg("ordererPersonId", type => String, { nullable: true }) ordererPersonId?: Person["id"],

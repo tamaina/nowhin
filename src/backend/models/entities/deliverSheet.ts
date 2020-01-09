@@ -1,29 +1,39 @@
 // 納品書
-import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryColumn, Column, Index, ManyToOne, JoinColumn, ManyToMany } from "typeorm"
+import { ObjectType, Field, ID } from "type-graphql"
 import { id } from "../id"
 import { Company } from "./company"
-import { DOrder } from "./order"
+import { Order } from "./order"
 import { Person } from "./person"
 
 @Entity("deliver_sheet")
-export class DDeliverSheet {
+@ObjectType()
+export class DeliverSheet {
   @PrimaryColumn(id())
+  @Field(type => ID)
   public id: string
 
   @Index()
   @Column()
+  @Field()
   public createdAt: Date
 
   @ManyToOne(type => Company, {
     onDelete: 'SET NULL'
   })
   @JoinColumn()
+  @Field(type => Company, {
+    nullable: true
+  })
   public ordererCompany?: Company
 
   @ManyToOne(type => Person, {
     onDelete: "SET NULL"
   })
   @JoinColumn()
+  @Field(type => Person, {
+    nullable: true
+  })
   public ordererPerson?: Person
 
   @Index()
@@ -32,19 +42,27 @@ export class DDeliverSheet {
     array: true,
     nullable: true
   })
-  public orderIds: DOrder["id"][]
+  @Field(type => [String], {
+    nullable: true
+  })
+  public orderIds: Order["id"][]
+
+  @ManyToMany(type => Order)
+  @JoinColumn()
+  @Field(type => [Order])
+  public orders: Order[]
 
   @Column("varchar", {
     ...id,
     array: true,
     nullable: true
   })
-  /*@Field(type => [String], {
+  @Field(type => [String], {
     nullable: true
-  })*/
+  })
   public noteIds: string[]
 
-  constructor(data: Partial<DDeliverSheet>) {
+  constructor(data: Partial<DeliverSheet>) {
     if (data == null) return
 
     for (const [k, v] of Object.entries(data)) {
