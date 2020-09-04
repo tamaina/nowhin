@@ -89,7 +89,7 @@
     "svgo-loader": "^2.2.1",
     "terser-webpack-plugin": "^2.2.1",
     "ts-loader": "6",
-    "type-graphql": "^0.17.5",
+    "type-graphql": "^0.17.6",
     "typeorm": "^0.2.20",
     "url-loader": "^3.0.0",
     "vue": "^2.6.9",
